@@ -7,7 +7,7 @@
     "directory": "https://github.com/Semifinals/token.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Finley Sherwood",
   "license": "ISC",
@@ -15,6 +15,11 @@
     "buffer": "^6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11"
+    "@jest/globals": "^29.5.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.2"
   }
 }

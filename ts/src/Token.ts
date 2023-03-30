@@ -19,7 +19,7 @@ export class Token {
    * @returns The generated token
    */
   public static generate(id: string, secret: string): string {
-    const timestamp = Date.now() / 1000 - Token.epoch
+    const timestamp = Math.round(Date.now() / 1000) - Token.epoch
 
     const payload = Token.payload(id, timestamp)
     const signature = Token.sign(payload, secret)
@@ -65,7 +65,10 @@ export class Token {
     const userId = Token.toUtf8(parts[0])
     if (userId.length === 0) return false
 
-    const timestamp = parseInt(Token.toUtf8(parts[1]))
+    const unparsedTimestamp = Token.toUtf8(parts[1])
+    if (unparsedTimestamp.length === 0) return false
+
+    const timestamp = parseInt(unparsedTimestamp)
     if (typeof timestamp !== "number") return false
 
     const signature = parts[2]
@@ -86,7 +89,7 @@ export class Token {
     const parts = Token.split(token)
 
     const id = Token.toUtf8(parts[0])
-    const timestamp = Number(Token.toUtf8(parts[1]))
+    const timestamp = parseInt(Token.toUtf8(parts[1]))
     const signature = parts[2]
 
     const payload = Token.payload(id, timestamp)
@@ -138,11 +141,11 @@ export class Token {
   }
 
   /**
-   * Split the token into its parts.
-   * @param token The full token
-   * @returns The token split into its parts
+   * Split a string into parts by the token separater.
+   * @param token The string to split
+   * @returns The string split into its parts
    */
-  private static split(token: string): string[] {
+  public static split(token: string): string[] {
     return token.split(Token.separator)
   }
 
