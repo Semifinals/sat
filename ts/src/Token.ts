@@ -28,7 +28,7 @@ export class Token {
   }
 
   /**
-   * Generate a payload using the given ID and timestamp
+   * Generate a payload using the given ID and timestamp.
    * @param id The ID for the token
    * @param timestamp The timestamp for the token
    * @returns The resulting payload
@@ -114,7 +114,7 @@ export class Token {
 
   /**
    * Get the timestamp of the token.
-   * @param token Then full token
+   * @param token The full token
    * @returns The Semifinals epoch timestamp of the token in seconds
    */
   public static getTimestamp(token: string): number | null {
@@ -141,16 +141,16 @@ export class Token {
   }
 
   /**
-   * Split a string into parts by the token separater.
-   * @param token The string to split
+   * Split a string into parts by the token separator.
+   * @param str The string to split
    * @returns The string split into its parts
    */
-  public static split(token: string): string[] {
-    return token.split(Token.separator)
+  public static split(str: string): string[] {
+    return str.split(Token.separator)
   }
 
   /**
-   * Convert a utf8 string into base64
+   * Convert a utf8 string into base64.
    * @param str The utf8 string
    * @returns The string converted to base64
    */
@@ -159,7 +159,7 @@ export class Token {
   }
 
   /**
-   * Convert a base64 string into utf8
+   * Convert a base64 string into utf8.
    * @param str The base64 string
    * @returns The string converted to utf8
    */
