@@ -45,9 +45,6 @@ describe("Token", () => {
 
       const payload = Token.payload(resId, resTimestamp)
       const signature = Token.sign(payload, testSecret)
-
-      console.log(res.split(".").splice(0, 2).join("."), payload)
-
       expect(resSignature).toBe(signature)
     })
   })
