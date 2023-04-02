@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Semifinals.Utils.Tokens</PackageId>
+	  <Version>1.0.0</Version>
+    <AssemblyName>Semifinals.Utils.Tokens</AssemblyName>
+    <RootNamespace>Semifinals.Utils.Tokens</RootNamespace>
+    <Company>Semifinals</Company>
+    <Product>Tokens</Product>
+    <Authors>Finley Sherwood</Authors>
+    <Description>Package for creating and handling Semifinals Authentication Tokens</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>
