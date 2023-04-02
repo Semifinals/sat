@@ -39,22 +39,27 @@ describe("Token", () => {
 
       // Assert
       const resId = Token.getId(res)!
+      const resTimestamp = Token.getTimestamp(res)!
+      const resSignature = Token.getSignature(res)!
       expect(resId).toBe(id)
 
-      const resTimestamp = Token.getTimestamp(res)! - Token.epoch
       const payload = Token.payload(resId, resTimestamp)
       const signature = Token.sign(payload, testSecret)
 
-      const resSignature = Token.getSignature(res)
+      console.log(res.split(".").splice(0, 2).join("."), payload)
+
       expect(resSignature).toBe(signature)
     })
   })
 
   describe("payload", () => {
     it.each([
-      [["id", 1], "aWQ=.MQ=="],
-      [["test", 86400], "dGVzdA==.ODY0MDA="],
-      [["working", 1234567890], "d29ya2luZw==.MTIzNDU2Nzg5MA=="]
+      [["id", (Token.epoch + 1) * 1000], "aWQ=.MQ=="],
+      [["test", (Token.epoch + 86400) * 1000], "dGVzdA==.ODY0MDA="],
+      [
+        ["working", (Token.epoch + 1234567890) * 1000],
+        "d29ya2luZw==.MTIzNDU2Nzg5MA=="
+      ]
     ] as [[string, number], string][])(
       "generates payload for %p",
       (params: [string, number], expected: string) => {
@@ -156,8 +161,8 @@ describe("Token", () => {
 
   describe("getTimestamp", () => {
     it.each([
-      ["this.ODY0MDA=.valid", Token.epoch + 86400],
-      ["yes.MQ==.valid", Token.epoch + 1],
+      ["this.ODY0MDA=.valid", (Token.epoch + 86400) * 1000],
+      ["yes.MQ==.valid", (Token.epoch + 1) * 1000],
       ["no.MQ==", null],
       ["fail", null],
       ["", null]

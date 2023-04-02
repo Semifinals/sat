@@ -19,7 +19,7 @@ export class Token {
    * @returns The generated token
    */
   public static generate(id: string, secret: string): string {
-    const timestamp = Math.round(Date.now() / 1000) - Token.epoch
+    const timestamp = Date.now()
 
     const payload = Token.payload(id, timestamp)
     const signature = Token.sign(payload, secret)
@@ -30,12 +30,14 @@ export class Token {
   /**
    * Generate a payload using the given ID and timestamp.
    * @param id The ID for the token
-   * @param timestamp The timestamp for the token
+   * @param timestamp The unix timestamp for the token
    * @returns The resulting payload
    */
   public static payload(id: string, timestamp: number): string {
     const encodedId = Token.toBase64(id)
-    const encodedTimestamp = Token.toBase64(String(timestamp))
+    const encodedTimestamp = Token.toBase64(
+      String(Math.floor(timestamp / 1000) - Token.epoch)
+    )
 
     return encodedId + Token.separator + encodedTimestamp
   }
@@ -62,8 +64,8 @@ export class Token {
     const parts = Token.split(token)
     if (parts.length !== 3) return false
 
-    const userId = Token.toUtf8(parts[0])
-    if (userId.length === 0) return false
+    const id = Token.toUtf8(parts[0])
+    if (id.length === 0) return false
 
     const unparsedTimestamp = Token.toUtf8(parts[1])
     if (unparsedTimestamp.length === 0) return false
@@ -86,11 +88,11 @@ export class Token {
   public static verify(token: string, secret: string): boolean {
     if (!Token.validate(token)) return false
 
-    const parts = Token.split(token)
+    const id = Token.getId(token)
+    const timestamp = Token.getTimestamp(token)
+    const signature = Token.getSignature(token)
 
-    const id = Token.toUtf8(parts[0])
-    const timestamp = parseInt(Token.toUtf8(parts[1]))
-    const signature = parts[2]
+    if (id === null || timestamp === null || signature === null) return false
 
     const payload = Token.payload(id, timestamp)
     const generatedSignature = Token.sign(payload, secret)
@@ -113,9 +115,9 @@ export class Token {
   }
 
   /**
-   * Get the timestamp of the token.
+   * Get the unix timestamp of the token.
    * @param token The full token
-   * @returns The Semifinals epoch timestamp of the token in seconds
+   * @returns The unix timestamp of the token in milliseconds
    */
   public static getTimestamp(token: string): number | null {
     if (!Token.validate(token)) return null
@@ -123,7 +125,7 @@ export class Token {
     const parts = Token.split(token)
     const timestamp = parseInt(Token.toUtf8(parts[1]))
 
-    return Token.epoch + timestamp
+    return (Token.epoch + timestamp) * 1000
   }
 
   /**
