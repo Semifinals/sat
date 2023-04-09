@@ -2,14 +2,27 @@
   "name": "@semifinals/token",
   "version": "1.0.0",
   "description": "Package for creating and handling Semifinals Authentication Tokens",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
+  },
+  "author": "Finley Sherwood",
   "repository": {
     "type": "git",
     "directory": "https://github.com/Semifinals/token.git"
   },
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "Finley Sherwood",
+  "keywords": [
+    "token",
+    "authentication",
+    "security"
+  ],
   "license": "ISC",
   "dependencies": {
     "buffer": "^6.0.3"
