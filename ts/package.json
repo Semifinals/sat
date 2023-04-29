@@ -1,6 +1,6 @@
 {
   "name": "@semifinals/token",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Package for creating and handling Semifinals Authentication Tokens",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
