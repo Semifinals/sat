@@ -134,10 +134,10 @@ public class Token
     }
 
     /// <summary>
-    /// Get the timestamp of the token.
+    /// Get the unix epoch timestamp of the token.
     /// </summary>
     /// <param name="token">The full token</param>
-    /// <returns>The Semifinals epoch timestamp of the token in seconds</returns>
+    /// <returns>The Semifinals epoch timestamp of the token in milliseconds</returns>
     public static long? GetTimestamp(string token)
     {
         if (!Validate(token))
