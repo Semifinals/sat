@@ -1,5 +1,5 @@
 import { Buffer } from "buffer"
-import { createHmac } from "node:crypto"
+import { sha256 } from "js-sha256"
 
 export class Token {
   /**
@@ -49,10 +49,8 @@ export class Token {
    * @returns The generated signature
    */
   public static sign(payload: string, secret: string): string {
-    const hasher = createHmac("sha256", secret)
-    const signature = hasher.update(payload).digest("base64")
-
-    return signature
+    const hash = sha256.hmac.update(secret, payload).digest()
+    return Buffer.from(hash).toString("base64")
   }
 
   /**

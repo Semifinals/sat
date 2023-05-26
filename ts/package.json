@@ -1,6 +1,6 @@
 {
   "name": "@semifinals/token",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Package for creating and handling Semifinals Authentication Tokens",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,8 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "buffer": "^6.0.3"
+    "buffer": "^6.0.3",
+    "js-sha256": "^0.9.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
